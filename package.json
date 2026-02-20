@@ -1,0 +1,10 @@
+{
+  "name": "mini-fps-game",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simple browser FPS demo",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs"
+  }
+}
