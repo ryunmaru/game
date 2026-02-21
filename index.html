@@ -17,13 +17,6 @@
     #fire { position:fixed; right:160px; bottom:max(26px, env(safe-area-inset-bottom)); width:82px; height:82px; border-radius:50%; border:1px solid #fff9; background:#ff4d4db0; color:#fff; font-weight:800; pointer-events:auto; }
     @media (hover:hover) and (pointer:fine) { #mobile { display:none; } }
   </style>
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js"
-    }
-  }
-  </script>
 </head>
 <body>
   <div id="hud"><div id="stats">HP: 100 | Score: 0 | Ammo: 12/12</div><div id="help">WASD 移動 / マウス視点 / クリック射撃</div></div>
@@ -36,7 +29,15 @@
   </div>
 
   <script type="module">
-    import * as THREE from 'three';
+    let THREE;
+    try {
+      THREE = await import('https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js');
+    } catch (e) {
+      const msg = document.getElementById('message');
+      msg.classList.remove('hidden');
+      msg.innerHTML = '3Dライブラリの読み込みに失敗しました。<br>通信環境を確認して再読み込みしてください。<br><small>(CDN読み込み失敗)</small>';
+      throw e;
+    }
 
     const MAP = [
       '################', '#..............#', '#.###.####.###.#', '#...#....#.....#', '#.#.#.##.#.###.#', '#.#....#.#...#.#', '#.####.#.###.#.#', '#......#.....#.#', '#.####.#####.#.#', '#.#..........#.#', '#.#.##########.#', '#.#............#', '#.######.#######', '#..............#', '################'
